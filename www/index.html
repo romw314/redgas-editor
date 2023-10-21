@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>RedGas editor</title>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+		<script src="https://cdn.jsdelivr.net/npm/dollar-syntax@0.0.2/index.js"></script>
+		<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"/>
+		<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	</head>
+	<body style="background-color: lightsalmon; text-align: center;">
+		<h1>RedGas</h1>
+		<div id="loadScreen">
+			<input id="in" placeholder="<your github username>:<your site name>, e.g. romw314:My-Awesome-Site" style="width: 80%;"/>
+			<input id="load" type="button" value="Load"/>
+		</div>
+		<div id="editor-container">
+			<div id="toolbar">
+				<span class="ql-formats">
+					<span class="ql-font ql-picker">
+						<span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-0">
+							<svg viewBox="0 0 18 18">
+								<polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon>
+								<polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon>
+							</svg>
+						</span>
+						<span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-0">
+							<span tabindex="0" role="button" class="ql-picker-item ql-selected"></span>
+							<span tabindex="0" role="button" class="ql-picker-item" data-value="serif"></span>
+							<span tabindex="0" role="button" class="ql-picker-item" data-value="monospace"></span>
+						</span>
+					</span>
+					<select class="ql-font" style="display: none;">
+						<option selected="selected"></option>
+						<option value="serif"></option>
+						<option value="monospace"></option>
+					</select>
+					<span class="ql-size ql-picker">
+						<span class="ql-picker-label" tabindex="0" role="button" aria-expanded="false" aria-controls="ql-picker-options-1">
+							<svg viewBox="0 0 18 18">
+								<polygon class="ql-stroke" points="7 11 9 13 11 11 7 11"></polygon>
+								<polygon class="ql-stroke" points="7 7 9 5 11 7 7 7"></polygon>
+							</svg>
+						</span>
+						<span class="ql-picker-options" aria-hidden="true" tabindex="-1" id="ql-picker-options-1">
+							<span tabindex="0" role="button" class="ql-picker-item" data-value="small"></span>
+							<span tabindex="0" role="button" class="ql-picker-item ql-selected"></span>
+							<span tabindex="0" role="button" class="ql-picker-item" data-value="large"></span>
+							<span tabindex="0" role="button" class="ql-picker-item" data-value="huge"></span>
+						</span>
+					</span>
+					<select class="ql-size" style="display: none;">
+						<option value="small"></option>
+						<option selected="selected"></option>
+						<option value="large"></option>
+						<option value="huge"></option>
+					</select>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-bold" type="button">
+						<svg viewBox="0 0 18 18">
+							<path class="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"></path>
+							<path class="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"></path>
+						</svg>
+					</button>
+					<button class="ql-italic" type="button">
+						<svg viewBox="0 0 18 18">
+							<line class="ql-stroke" x1="7" x2="13" y1="4" y2="4"></line>
+							<line class="ql-stroke" x1="5" x2="11" y1="14" y2="14"></line>
+							<line class="ql-stroke" x1="8" x2="10" y1="14" y2="4"></line>
+						</svg>
+					</button>
+					<button class="ql-underline" type="button">
+						<svg viewBox="0 0 18 18">
+							<path class="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"></path>
+							<rect class="ql-fill" height="1" rx="0.5" ry="0.5" width="12" x="3" y="15"></rect>
+						</svg>
+					</button>
+					<button class="ql-strike" type="button">
+						<svg viewBox="0 0 18 18">
+							<line class="ql-stroke ql-thin" x1="15.5" x2="2.5" y1="8.5" y2="9.5"></line>
+							<path class="ql-fill" d="M9.007,8C6.542,7.791,6,7.519,6,6.5,6,5.792,7.283,5,9,5c1.571,0,2.765.679,2.969,1.309a1,1,0,0,0,1.9-.617C13.356,4.106,11.354,3,9,3,6.2,3,4,4.538,4,6.5a3.2,3.2,0,0,0,.5,1.843Z"></path>
+							<path class="ql-fill" d="M8.984,10C11.457,10.208,12,10.479,12,11.5c0,0.708-1.283,1.5-3,1.5-1.571,0-2.765-.679-2.969-1.309a1,1,0,1,0-1.9.617C4.644,13.894,6.646,15,9,15c2.8,0,5-1.538,5-3.5a3.2,3.2,0,0,0-.5-1.843Z"></path>
+						</svg>
+					</button>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-header" value="1" type="button">
+						<svg viewBox="0 0 18 18">
+							<path class="ql-fill" d="M10,4V14a1,1,0,0,1-2,0V10H3v4a1,1,0,0,1-2,0V4A1,1,0,0,1,3,4V8H8V4a1,1,0,0,1,2,0Zm6.06787,9.209H14.98975V7.59863a.54085.54085,0,0,0-.605-.60547h-.62744a1.01119,1.01119,0,0,0-.748.29688L11.645,8.56641a.5435.5435,0,0,0-.022.8584l.28613.30762a.53861.53861,0,0,0,.84717.0332l.09912-.08789a1.2137,1.2137,0,0,0,.2417-.35254h.02246s-.01123.30859-.01123.60547V13.209H12.041a.54085.54085,0,0,0-.605.60547v.43945a.54085.54085,0,0,0,.605.60547h4.02686a.54085.54085,0,0,0,.605-.60547v-.43945A.54085.54085,0,0,0,16.06787,13.209Z"></path>
+						</svg>
+					</button>
+					<button class="ql-header" value="2" type="button">
+						<svg viewBox="0 0 18 18">
+							<path class="ql-fill" d="M16.73975,13.81445v.43945a.54085.54085,0,0,1-.605.60547H11.855a.58392.58392,0,0,1-.64893-.60547V14.0127c0-2.90527,3.39941-3.42187,3.39941-4.55469a.77675.77675,0,0,0-.84717-.78125,1.17684,1.17684,0,0,0-.83594.38477c-.2749.26367-.561.374-.85791.13184l-.4292-.34082c-.30811-.24219-.38525-.51758-.1543-.81445a2.97155,2.97155,0,0,1,2.45361-1.17676,2.45393,2.45393,0,0,1,2.68408,2.40918c0,2.45312-3.1792,2.92676-3.27832,3.93848h2.79443A.54085.54085,0,0,1,16.73975,13.81445ZM9,3A.99974.99974,0,0,0,8,4V8H3V4A1,1,0,0,0,1,4V14a1,1,0,0,0,2,0V10H8v4a1,1,0,0,0,2,0V4A.99974.99974,0,0,0,9,3Z"></path>
+						</svg>
+					</button>
+					<button class="ql-blockquote" type="button">
+						<svg viewBox="0 0 18 18">
+							<rect class="ql-fill ql-stroke" height="3" width="3" x="4" y="5"></rect>
+							<rect class="ql-fill ql-stroke" height="3" width="3" x="11" y="5"></rect>
+							<path class="ql-even ql-fill ql-stroke" d="M7,8c0,4.031-3,5-3,5"></path>
+							<path class="ql-even ql-fill ql-stroke" d="M14,8c0,4.031-3,5-3,5"></path>
+						</svg>
+					</button>
+					<button class="ql-code-block ql-active" type="button">
+						<svg viewBox="0 0 18 18">
+							<polyline class="ql-even ql-stroke" points="5 7 3 9 5 11"></polyline>
+							<polyline class="ql-even ql-stroke" points="13 7 15 9 13 11"></polyline>
+							<line class="ql-stroke" x1="10" x2="8" y1="5" y2="13"></line>
+						</svg>
+					</button>
+				</span>
+				<span class="ql-formats">
+					<button class="ql-link" type="button">
+						<svg viewBox="0 0 18 18">
+							<line class="ql-stroke" x1="7" x2="11" y1="7" y2="11"></line>
+							<path class="ql-even ql-stroke" d="M8.9,4.577a3.476,3.476,0,0,1,.36,4.679A3.476,3.476,0,0,1,4.577,8.9C3.185,7.5,2.035,6.4,4.217,4.217S7.5,3.185,8.9,4.577Z"></path>
+							<path class="ql-even ql-stroke" d="M13.423,9.1a3.476,3.476,0,0,0-4.679-.36,3.476,3.476,0,0,0,.36,4.679c1.392,1.392,2.5,2.542,4.679.36S14.815,10.5,13.423,9.1Z"></path>
+						</svg>
+					</button>
+					<button class="ql-image" type="button">
+						<svg viewBox="0 0 18 18">
+							<rect class="ql-stroke" height="10" width="12" x="3" y="4"></rect>
+							<circle class="ql-fill" cx="6" cy="7" r="1"></circle>
+							<polyline class="ql-even ql-fill" points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12"></polyline>
+						</svg>
+					</button>
+					<button class="ql-video" type="button">
+						<svg viewBox="0 0 18 18">
+							<rect class="ql-stroke" height="12" width="12" x="3" y="3"></rect>
+							<rect class="ql-fill" height="12" width="1" x="5" y="3"></rect>
+							<rect class="ql-fill" height="12" width="1" x="12" y="3"></rect>
+							<rect class="ql-fill" height="2" width="8" x="5" y="8"></rect>
+							<rect class="ql-fill" height="1" width="3" x="3" y="5"></rect>
+							<rect class="ql-fill" height="1" width="3" x="3" y="7"></rect>
+							<rect class="ql-fill" height="1" width="3" x="3" y="10"></rect>
+							<rect class="ql-fill" height="1" width="3" x="3" y="12"></rect>
+							<rect class="ql-fill" height="1" width="3" x="12" y="5"></rect>
+							<rect class="ql-fill" height="1" width="3" x="12" y="7"></rect>
+							<rect class="ql-fill" height="1" width="3" x="12" y="10"></rect>
+							<rect class="ql-fill" height="1" width="3" x="12" y="12"></rect>
+						</svg>
+					</button>
+					<button class="ql-formula" type="button">
+						<svg viewBox="0 0 18 18">
+							<path class="ql-fill" d="M11.759,2.482a2.561,2.561,0,0,0-3.53.607A7.656,7.656,0,0,0,6.8,6.2C6.109,9.188,5.275,14.677,4.15,14.927a1.545,1.545,0,0,0-1.3-.933A0.922,0.922,0,0,0,2,15.036S1.954,16,4.119,16s3.091-2.691,3.7-5.553c0.177-.826.36-1.726,0.554-2.6L8.775,6.2c0.381-1.421.807-2.521,1.306-2.676a1.014,1.014,0,0,0,1.02.56A0.966,0.966,0,0,0,11.759,2.482Z"></path>
+							<rect class="ql-fill" height="1.6" rx="0.8" ry="0.8" width="5" x="5.15" y="6.2"></rect>
+							<path class="ql-fill" d="M13.663,12.027a1.662,1.662,0,0,1,.266-0.276q0.193,0.069.456,0.138a2.1,2.1,0,0,0,.535.069,1.075,1.075,0,0,0,.767-0.3,1.044,1.044,0,0,0,.314-0.8,0.84,0.84,0,0,0-.238-0.619,0.8,0.8,0,0,0-.594-0.239,1.154,1.154,0,0,0-.781.3,4.607,4.607,0,0,0-.781,1q-0.091.15-.218,0.346l-0.246.38c-0.068-.288-0.137-0.582-0.212-0.885-0.459-1.847-2.494-.984-2.941-0.8-0.482.2-.353,0.647-0.094,0.529a0.869,0.869,0,0,1,1.281.585c0.217,0.751.377,1.436,0.527,2.038a5.688,5.688,0,0,1-.362.467,2.69,2.69,0,0,1-.264.271q-0.221-.08-0.471-0.147a2.029,2.029,0,0,0-.522-0.066,1.079,1.079,0,0,0-.768.3A1.058,1.058,0,0,0,9,15.131a0.82,0.82,0,0,0,.832.852,1.134,1.134,0,0,0,.787-0.3,5.11,5.11,0,0,0,.776-0.993q0.141-.219.215-0.34c0.046-.076.122-0.194,0.223-0.346a2.786,2.786,0,0,0,.918,1.726,2.582,2.582,0,0,0,2.376-.185c0.317-.181.212-0.565,0-0.494A0.807,0.807,0,0,1,14.176,15a5.159,5.159,0,0,1-.913-2.446l0,0Q13.487,12.24,13.663,12.027Z"></path>
+						</svg>
+					</button>
+				</span>
+			</div>
+			<div id="editor">Loading...</div>
+			<input id="save" type="button" value="Save"/>
+		<script>
+			document.getElementById('editor-container').style.display = 'none';
+			document.getElementById('load').addEventListener('click', async function() {
+				const parts = document.getElementById('in').value.split(':');
+				const base = `https://raw.githubusercontent.com/${parts[0]}/GAP-${parts[1]}/master`;
+				const editor = document.getElementById('editor');
+				editor.innerHTML = await fetch(base + '/site_content.html.placeholder').then(res => res.text());
+				const quill = new Quill('#editor', { theme: 'snow', modules: { toolbar: '#toolbar' } });
+				delete$(quill);
+				Swal.fire('Success.', 'Loaded site.', 'success');
+				document.getElementById('loadScreen').remove();
+				document.getElementById('editor-container').style.display = 'block';
+			});
+			document.getElementById('save').addEventListener('click', function() {
+				window.alert('Coming soon.');
+			});
+		</script>
+	</body>
+</html>

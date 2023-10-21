@@ -1,0 +1,23 @@
+{
+	"name": "redgas-editor",
+	"version": "1.0.0",
+	"main": "main.js",
+	"license": "UNLICENSED",
+	"scripts": {
+		"start": "electron .",
+		"build": "electron-builder build"
+	},
+	"keywords": [
+		"Electron"
+	],
+	"build": {
+		"appId": "io.romw314.redgaseditor",
+		"productName": "RedGas editor"
+	},
+	"author": "romw314",
+	"devDependencies": {
+		"electron": "^27.0.0",
+		"electron-builder": "^24.6.1"
+	},
+	"dependencies": {}
+}
