@@ -10,6 +10,7 @@
 	"keywords": [
 		"Electron"
 	],
+	"repository": "github:romw314/redgas-editor",
 	"build": {
 		"appId": "io.romw314.redgaseditor",
 		"productName": "RedGas editor"
