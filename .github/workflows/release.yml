@@ -10,8 +10,11 @@ concurrency:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: ["ubuntu", "windows"]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}-latest
 
     steps:
     - uses: actions/checkout@v3
