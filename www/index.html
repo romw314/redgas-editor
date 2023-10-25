@@ -153,21 +153,65 @@
 			</div>
 			<div id="editor">Loading...</div>
 			<input id="save" type="button" value="Save"/>
-		<script>
+		<script type="module">
+			import { Octokit } from "https://esm.sh/@octokit/core";
+			import { createOAuthDeviceAuth } from "https://esm.sh/@octokit/auth-oauth-device";
+			import { createOrUpdateTextFile } from "https://esm.sh/@octokit/plugin-create-or-update-text-file";
+			const FullOctokit = Octokit.plugin(createOrUpdateTextFile);
 			document.getElementById('editor-container').style.display = 'none';
 			document.getElementById('load').addEventListener('click', async function() {
 				const parts = document.getElementById('in').value.split(':');
-				const base = `https://raw.githubusercontent.com/${parts[0]}/GAP-${parts[1]}/master`;
+				window.__RedGas_GitHub_Login = parts;
+				window.__RedGas_UrlBase = `https://raw.githubusercontent.com/${parts[0]}/GAP-${parts[1]}/master`;
 				const editor = document.getElementById('editor');
-				editor.innerHTML = await fetch(base + '/site_content.html.placeholder').then(res => res.text());
-				const quill = new Quill('#editor', { theme: 'snow', modules: { toolbar: '#toolbar' } });
-				delete$(quill);
-				Swal.fire('Success.', 'Loaded site.', 'success');
+				editor.innerHTML = await fetch(window.__RedGas_UrlBase + '/site_content.html.placeholder').then(res => res.text());
+				window.__RedGas_Quill = new Quill('#editor', { theme: 'snow', modules: { toolbar: '#toolbar' } });
+				delete$(window.__RedGas_Quill);
+				await Swal.fire('Success', 'Loaded site.', 'success');
 				document.getElementById('loadScreen').remove();
 				document.getElementById('editor-container').style.display = 'block';
 			});
-			document.getElementById('save').addEventListener('click', function() {
-				window.alert('Coming soon.');
+			document.getElementById('save').addEventListener('click', async function() {
+				const auth = createOAuthDeviceAuth({
+					clientType: 'oauth-app',
+					clientId: await fetch('https://romw314.github.io/data-host/key/redgas/07313a1f-290c-4a1d-89fc-e81df0c2a351/gha.cid').then(res => res.text()).then(data => data.substr(0, data.length - 1)),
+					onVerification: async ({ verification_uri, user_code }) => {
+						await Swal.fire('First copy your one-time code', user_code);
+						window.open(verification_uri);
+					},
+					scopes: ['repo']
+				});
+				const { token } = await auth({
+					type: 'oauth'
+				});
+				const octokit = new FullOctokit({ auth: token });
+				const { data: { login } } = await octokit.request('GET /user', {
+					headers: {
+						'X-GitHub-Api-Version': '2022-11-28'
+					}
+				});
+				const content = window.__RedGas_Quill.root.innerHTML;
+				await octokit.createOrUpdateTextFile({
+					owner: window.__RedGas_GitHub_Login[0],
+					repo: 'GAP-' + window.__RedGas_GitHub_Login[1],
+					path: 'site_content.html.placeholder',
+					content,
+					message: `RedGas: Saved to site_content.html.placeholder by @${login}.`
+				});
+				await octokit.createOrUpdateTextFile({
+					owner: window.__RedGas_GitHub_Login[0],
+					repo: 'GAP-' + window.__RedGas_GitHub_Login[1],
+					path: 'index.html',
+					content: (await fetch(window.__RedGas_UrlBase + '/index.html.in').then(res => res.text())).replace('%(site_content)', content),
+					message: `RedGas: Saved to index.html by @${login}.`
+				});
+				await Swal.fire({
+					title: 'Success',
+					text: 'Saved site.',
+					icon: 'success',
+					footer: 'It may take some time to apply the changes.'
+				});
+				window.close();
 			});
 		</script>
 	</body>
