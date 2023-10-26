@@ -10,7 +10,9 @@ concurrency:
 
 jobs:
   build:
+    permissions: write-all
     strategy:
+      max-parallel: 1
       matrix:
         os: ["ubuntu", "windows"]
 
