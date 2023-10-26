@@ -29,8 +29,7 @@
 				"nsis",
 				"nsis-web",
 				"zip",
-				"msi",
-				"appx"
+				"msi"
 			]
 		},
 		"nsis": {
