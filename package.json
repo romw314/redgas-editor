@@ -1,6 +1,6 @@
 {
 	"name": "redgas-editor",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"main": "main.js",
 	"license": "UNLICENSED",
 	"scripts": {
@@ -25,7 +25,13 @@
 					"channel": "latest"
 				}
 			],
-			"target": ["nsis", "nsis-web", "zip", "msi", "appx"]
+			"target": [
+				"nsis",
+				"nsis-web",
+				"zip",
+				"msi",
+				"appx"
+			]
 		},
 		"nsis": {
 			"oneClick": false,
@@ -44,7 +50,12 @@
 					"channel": "latest"
 				}
 			],
-			"target": ["AppImage", "snap", "deb", "zip"]
+			"target": [
+				"AppImage",
+				"snap",
+				"deb",
+				"zip"
+			]
 		},
 		"appImage": {
 			"license": "LICENSE"
