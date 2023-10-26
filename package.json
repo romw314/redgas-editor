@@ -39,8 +39,10 @@
 		},
 		"linux": {
 			"publish": [
-				"provider": "github",
-				"channel": "latest"
+				{
+					"provider": "github",
+					"channel": "latest"
+				}
 			],
 			"target": ["AppImage", "snap", "deb", "zip"]
 		},
