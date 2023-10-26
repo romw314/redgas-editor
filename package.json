@@ -18,18 +18,34 @@
 		"productName": "RedGas editor",
 		"asar": false,
 		"win": {
-			"executableName": "RedGas website editor"
-		},
-		"nsis": {
-			"oneClick": false,
-			"allowToChangeInstallationDirectory": true,
-			"license": "LICENSE",
+			"executableName": "RedGas website editor",
 			"publish": [
 				{
 					"provider": "github",
 					"channel": "latest"
 				}
-			]
+			],
+			"target": ["nsis", "nsis-web", "zip", "msi", "appx"]
+		},
+		"nsis": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"license": "LICENSE"
+		},
+		"nsisWeb": {
+			"oneClick": false,
+			"allowToChangeInstallationDirectory": true,
+			"license": "LICENSE"
+		},
+		"linux": {
+			"publish": [
+				"provider": "github",
+				"channel": "latest"
+			],
+			"target": ["AppImage", "snap", "deb", "zip"]
+		},
+		"appImage": {
+			"license": "LICENSE"
 		}
 	},
 	"author": "romw314",
