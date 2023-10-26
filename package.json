@@ -1,6 +1,6 @@
 {
 	"name": "redgas-editor",
-	"version": "0.0.8-2",
+	"version": "0.0.8-3",
 	"main": "main.js",
 	"license": "UNLICENSED",
 	"scripts": {
