@@ -26,7 +26,7 @@ jobs:
         node-version: 18.x
         cache: 'yarn'
     - name: Install Snapcraft
-      if: ${{ matrix.os == ubuntu }}
+      if: ${{ matrix.os == 'ubuntu' }}
       run: sudo snap install snapcraft --classic
     - run: yarn install
     - run: yarn release
