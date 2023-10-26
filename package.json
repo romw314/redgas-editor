@@ -56,6 +56,10 @@
 			"allowToChangeInstallationDirectory": true,
 			"license": "LICENSE"
 		},
+		"msi": {
+			"oneClick": true,
+			"perMachine": true
+		},
 		"linux": {
 			"publish": [
 				{
