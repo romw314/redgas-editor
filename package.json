@@ -74,6 +74,20 @@
 				"zip"
 			]
 		},
+		"snap": {
+			"base": "core18",
+			"publish": [
+				{
+					"provider": "snapStore",
+					"repo": "redgas",
+					"channels": ["beta"]
+				},
+				{
+					"provider": "github",
+					"channel": "latest"
+				}
+			]
+		},
 		"appImage": {
 			"license": "LICENSE"
 		}
