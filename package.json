@@ -1,6 +1,6 @@
 {
 	"name": "redgas-editor",
-	"version": "0.0.9-5",
+	"version": "0.0.9-6",
 	"main": "main.js",
 	"license": "UNLICENSED",
 	"scripts": {
@@ -76,6 +76,8 @@
 		},
 		"snap": {
 			"base": "core18",
+			"description": "The RedGas website editor.",
+			"category": "Productivity",
 			"publish": [
 				{
 					"provider": "snapStore",
