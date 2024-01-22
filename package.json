@@ -1,6 +1,6 @@
 {
 	"name": "redgas-editor",
-	"version": "0.0.9-3",
+	"version": "0.0.9-4",
 	"main": "main.js",
 	"license": "UNLICENSED",
 	"scripts": {
@@ -78,6 +78,7 @@
 			"base": "core18",
 			"publish": [
 				{
+					"name": "redgas",
 					"provider": "snapStore",
 					"repo": "redgas",
 					"channels": [
